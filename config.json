@@ -1,0 +1,13 @@
+{
+  "fontes": [
+    "https://iptv-org.github.io/iptv/index.category.m3u"
+  ],
+
+  "saida": "minha-lista.m3u",
+  "arquivo_canais": "canais.txt",
+  "arquivo_extras": "extras.m3u",
+
+  "remover_duplicados": true,
+  "bom": false,
+  "ignorar_ssl": false
+}

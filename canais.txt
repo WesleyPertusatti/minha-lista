@@ -1,0 +1,33 @@
+# ==========================================================
+#  LISTA DE CANAIS QUE VOCE QUER MANTER
+# ==========================================================
+#  Um termo por linha. Vale tudo que estiver escrito.
+#
+#  - A busca ignora maiuscula/minuscula e acentos.
+#  - O termo pode ser o NOME do canal ou o GRUPO dele.
+#  - Linhas comecando com # sao comentarios (nao contam).
+#
+#  Exemplos de como usar:
+#
+#    globo                 -> acha Globo, Globo SP, Globo RJ...
+#    =Globo SP             -> so "Globo SP" exatamente
+#    esporte               -> acha tudo que tem "esporte" no nome OU no grupo
+#    https://.../canal.ts  -> pega exatamente aquele canal pela URL
+#
+#  >>> APAGUE os exemplos abaixo e escreva os seus canais. <<<
+#  >>> Se deixar o arquivo vazio, a lista sai COMPLETA.    <<<
+# ==========================================================
+
+# --- Exemplos (apague ou ajuste) ---
+# Globo
+# SBT
+# Record
+# Bandeirantes
+# ESPN
+# SporTV
+# Telecine
+# HBO
+# Discovery
+# Cartoon
+# National Geographic
+# Premiere

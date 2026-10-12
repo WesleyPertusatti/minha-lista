@@ -1,0 +1,5 @@
+# Arquivos que nao precisam ir para o GitHub
+todos-os-canais.txt
+todos-os-canais.m3u
+__pycache__/
+*.pyc
