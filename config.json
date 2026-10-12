@@ -1,6 +1,6 @@
 {
   "fontes": [
-    "https://iptv-org.github.io/iptv/index.category.m3u"
+    "https://iptv-org.github.io/iptv/countries/br.m3u"
   ],
 
   "saida": "minha-lista.m3u",
