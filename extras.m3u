@@ -4,7 +4,11 @@
 #  Gerenciado pelo meus_canais.py - voce tambem pode editar aqui.
 #  Formato: uma linha #EXTINF e, logo abaixo, a URL do canal.
 # ---------------------------------------------------------------
-#EXTINF:-1 group-title="Games",Teste 03
-https://cdnlive.klicgo.net/esportsmax/live/playlist_dvr.m3u8
-#EXTINF:-1 group-title="Globo",Globo
+#EXTINF:-1 group-title="TV Aberta",Globo RBS
 https://cdn-sp2.satlabscloud.com.br/RBS_HD/index.m3u8?token=Mw3YKkujzIi9hYQJ6kAQjQvly2VdBNuGPjHOq
+#EXTINF:-1 group-title="Noticias",Globo News
+http://170.82.202.31/Viva/index.m3u8
+#EXTINF:-1 group-title="TV Aberta",SBT
+https://video09.logicahost.com.br/sbtcuiaba/sbtcuiaba/playlist.m3u8
+#EXTINF:-1 group-title="TV Aberta",SBT 2
+https://cdn.live.br1.jmvstream.com/w/LVW-10801/LVW10801_Xvg4R0u57n/chunklist.m3u8
