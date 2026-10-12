@@ -15,7 +15,8 @@ import re
 import sys
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-ARQ = os.path.join(BASE, "extras.m3u")
+RAIZ = os.path.dirname(BASE)  # pasta "Projeto Padrao" (1 acima de codigo)
+ARQ = os.path.join(RAIZ, "extras.m3u")
 CABECALHO = (
     "#EXTM3U\n"
     "# ---------------------------------------------------------------\n"

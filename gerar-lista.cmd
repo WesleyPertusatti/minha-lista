@@ -6,6 +6,6 @@ echo =========================================
 echo   GERANDO A SUA LISTA DE CANAIS
 echo =========================================
 echo.
-python gerar_lista.py %*
+python "codigo\gerar_lista.py" %*
 echo.
 pause

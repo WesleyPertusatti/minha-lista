@@ -35,6 +35,7 @@ import urllib.request
 import zlib
 
 BASE = os.path.dirname(os.path.abspath(__file__))
+RAIZ = os.path.dirname(BASE)  # pasta "Projeto Padrao" (1 acima de codigo)
 VERSAO = "1.1"
 
 
@@ -81,7 +82,7 @@ def baixar(origem: str, timeout: int = 45, ignorar_ssl: bool = False) -> str:
             if bruto[:2] == b"\x1f\x8b":
                 bruto = gzip.decompress(bruto)
     else:
-        caminho = origem if os.path.isabs(origem) else os.path.join(BASE, origem)
+        caminho = origem if os.path.isabs(origem) else os.path.join(RAIZ, origem)
         with open(caminho, "rb") as f:
             bruto = f.read()
 
@@ -248,7 +249,7 @@ def main():
     ap.add_argument("--timeout", type=int, default=8, help="Segundos de espera por canal na verificacao (padrao 8)")
     args = ap.parse_args()
 
-    cfg_path = os.path.join(BASE, "config.json")
+    cfg_path = os.path.join(RAIZ, "config.json")
     if not os.path.exists(cfg_path):
         print("ERRO: nao encontrei o config.json nesta pasta.")
         return 1
@@ -376,7 +377,7 @@ def main():
         termos = []
         print("\n--tudo: mantendo todos os canais.")
     else:
-        termos = ler_termos(os.path.join(BASE, arquivo_termos) if not os.path.isabs(arquivo_termos) else arquivo_termos)
+        termos = ler_termos(os.path.join(RAIZ, arquivo_termos) if not os.path.isabs(arquivo_termos) else arquivo_termos)
         incluir, excluir = separar_termos(termos)
         if not termos:
             print("\nAVISO: {} esta vazio -> a lista saira COMPLETA.".format(arquivo_termos))
@@ -395,7 +396,7 @@ def main():
             print("Termos com '!' excluiram {} canal(is).".format(cortados))
 
     # Canais extras (adicionados a mao) entram no final
-    extras_path = os.path.join(BASE, cfg.get("arquivo_extras", "extras.m3u"))
+    extras_path = os.path.join(RAIZ, cfg.get("arquivo_extras", "extras.m3u"))
     extras = []
     if os.path.exists(extras_path):
         with open(extras_path, "r", encoding="utf-8-sig", errors="replace") as f:
@@ -404,7 +405,7 @@ def main():
             print("Adicionando {} canal(is) de extras.m3u".format(len(extras)))
 
     final = escolhidos + extras
-    caminho_final = salvar(saida, montar_m3u(final, usar_bom))
+    caminho_final = salvar(os.path.join(RAIZ, saida) if not os.path.isabs(saida) else saida, montar_m3u(final, usar_bom))
 
     # Verificacao opcional: quais canais estao no ar agora
     if args.verificar and final:

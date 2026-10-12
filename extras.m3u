@@ -4,3 +4,7 @@
 #  Gerenciado pelo meus_canais.py - voce tambem pode editar aqui.
 #  Formato: uma linha #EXTINF e, logo abaixo, a URL do canal.
 # ---------------------------------------------------------------
+#EXTINF:-1 group-title="Games",Teste 03
+https://cdnlive.klicgo.net/esportsmax/live/playlist_dvr.m3u8
+#EXTINF:-1 group-title="Globo",Globo
+https://cdn-sp2.satlabscloud.com.br/RBS_HD/index.m3u8?token=Mw3YKkujzIi9hYQJ6kAQjQvly2VdBNuGPjHOq

@@ -7,7 +7,7 @@ echo   GERANDO E PUBLICANDO A SUA LISTA
 echo =========================================
 echo.
 
-python gerar_lista.py
+python "codigo\gerar_lista.py"
 if errorlevel 1 (
   echo.
   echo Deu erro ao gerar a lista. Publicacao cancelada.

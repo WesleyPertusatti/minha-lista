@@ -8,22 +8,24 @@ você publica esse arquivo no GitHub → cola o link no app da TV.
 
 ---
 
-## Arquivos desta pasta
+## Como a pasta está organizada
+
+**Raiz — o que você usa no dia a dia:**
 
 | Arquivo | Para que serve |
 |---|---|
-| `config.json` | Onde você cola o **link da lista original**. |
-| `canais.txt` | Onde você escreve **os canais que quer manter** (e os `!` que quer tirar). |
 | `meus-canais.cmd` | **Adicionar / listar / remover** os seus canais particulares. |
-| `meus_canais.py` | O programa por trás do `meus-canais.cmd`. |
-| `extras.m3u` | Onde ficam guardados os canais que você adicionou à mão. |
 | `gerar-lista.cmd` | Clica 2x e monta a sua lista final. |
-| `gerar_lista.py` | O programa que monta a lista (tem `--listar`, `--resumo`, `--verificar`). |
 | `servidor-local.cmd` | Serve a lista na sua rede local, **sem internet** (para a TV). |
 | `publicar.cmd` | Gera e envia para o GitHub (depois de configurado). |
-| `minha-lista.m3u` | **A sua lista final** (é esse arquivo que vai pra TV). |
-| `todos-os-canais.txt` / `.m3u` | Lista completa das fontes, só para consulta (gerada pelo `--listar`). |
-| `funcionando.txt` / `verificacao.txt` | Resultado do `--verificar`: o que está no ar agora. |
+| `canais.txt` | Onde você escreve **os canais que quer manter** (e os `!` que quer tirar). |
+| `extras.m3u` | Onde ficam guardados os canais que você adicionou à mão. |
+| `config.json` | Onde você cola o **link da lista original**. |
+| `minha-lista.m3u` | **A sua lista final** — é **esse arquivo** que vai pra TV. |
+
+**Pasta `codigo/` — não mexe, é só interna:** os programas
+(`gerar_lista.py`, `meus_canais.py`), este guia e os arquivos automáticos gerados
+por eles (`todos-os-canais.*`, `verificacao.txt`, `funcionando.txt`).
 
 ---
 
@@ -233,11 +235,11 @@ Se você não quer nada online (nem GitHub), tem dois caminhos:
 
 | Comando | O que faz |
 |---|---|
-| `python gerar_lista.py` | Gera a `minha-lista.m3u` com os canais do `canais.txt`. |
-| `python gerar_lista.py --resumo` | Mostra quantos canais cada fonte tem, por grupo e por país. |
-| `python gerar_lista.py --listar` | Lista os canais e salva `todos-os-canais.txt` + `todos-os-canais.m3u`. |
-| `python gerar_lista.py --tudo` | Gera a lista **completa**, sem filtrar nada. |
-| `python gerar_lista.py --verificar` | Testa quais canais estão no ar **agora**. |
+| `gerar-lista.cmd` *(2 cliques)* | Gera a `minha-lista.m3u` com os canais do `canais.txt`. |
+| `python "codigo\gerar_lista.py" --resumo` | Mostra quantos canais cada fonte tem, por grupo e por país. |
+| `python "codigo\gerar_lista.py" --listar` | Lista os canais e salva `todos-os-canais.*` na pasta `codigo`. |
+| `python "codigo\gerar_lista.py" --tudo` | Gera a lista **completa**, sem filtrar nada. |
+| `python "codigo\gerar_lista.py" --verificar` | Testa quais canais estão no ar **agora**. |
 | `python gerar_lista.py --verificar --timeout 15` | Mesma coisa, esperando mais por canal lento. |
 
 O `--verificar` cria dois arquivos:
