@@ -12,3 +12,17 @@ http://170.82.202.31/Viva/index.m3u8
 https://video09.logicahost.com.br/sbtcuiaba/sbtcuiaba/playlist.m3u8
 #EXTINF:-1 group-title="TV Aberta",SBT 2
 https://cdn.live.br1.jmvstream.com/w/LVW-10801/LVW10801_Xvg4R0u57n/chunklist.m3u8
+#EXTINF:-1 group-title="Noticias",CNN
+https://d25usgadhphvwi.cloudfront.net/hls/main.m3u8
+#EXTINF:-1 group-title="Esportes",Espn 4
+http://181.78.197.59:8000/play/a07n/index.m3u8
+#EXTINF:-1 group-title="Esportes",Espn 3
+http://190.83.2.182:8090/ESPN3/index.m3u8
+#EXTINF:-1 group-title="Esportes",Espn
+http://181.78.197.59:8000/play/a07z/index.m3u8
+#EXTINF:-1 group-title="Meus Canais",Sportv 2
+http://195.178.110.110/sportv2/index.m3u8
+#EXTINF:-1 group-title="Sportv 3",Sportv 3
+http://195.178.110.110/sportv3/index.m3u8
+#EXTINF:-1 group-title="Meus Canais",Sportv
+http://195.178.110.110/sportv/index.m3u8
