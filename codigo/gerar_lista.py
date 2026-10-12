@@ -259,8 +259,8 @@ def main():
 
     fontes = [x for x in cfg.get("fontes", []) if limpar(x) and not limpar(x).startswith("COLE")]
     if not fontes:
-        print("ERRO: coloque o link da lista original em config.json (campo \"fontes\").")
-        return 1
+        print("Sem fontes em config.json (campo \"fontes\" vazio).")
+        print("A lista vai ter so os seus canais do extras.m3u.\n")
 
     ignorar_ssl = bool(cfg.get("ignorar_ssl", False))
     usar_bom = bool(cfg.get("bom", False))
@@ -268,29 +268,39 @@ def main():
     arquivo_termos = cfg.get("arquivo_canais", "canais.txt")
     remover_duplicados = bool(cfg.get("remover_duplicados", True))
 
+    # Seus canais (adicionados a mao) - existem em qualquer modo
+    extras_path = os.path.join(RAIZ, cfg.get("arquivo_extras", "extras.m3u"))
+    extras = []
+    if os.path.exists(extras_path):
+        with open(extras_path, "r", encoding="utf-8-sig", errors="replace") as f:
+            extras = parse_m3u(f.read())
+
     todos = []
     resumos = []
-    for fonte in fontes:
-        nome_fonte = fonte if not re.match(r"^https?://", fonte, re.I) else fonte[:70] + ("..." if len(fonte) > 70 else "")
-        print("Lendo fonte: {}".format(nome_fonte))
-        try:
-            texto = baixar(fonte, ignorar_ssl=ignorar_ssl)
-        except urllib.error.HTTPError as e:
-            print("  -> FALHOU (HTTP {}). Link expirado ou bloqueado?".format(e.code))
-            resumos.append((nome_fonte, None))
-            continue
-        except Exception as e:
-            print("  -> FALHOU: {}".format(e))
-            resumos.append((nome_fonte, None))
-            continue
-        canais = parse_m3u(texto)
-        print("  -> {} canais encontrados".format(len(canais)))
-        resumos.append((nome_fonte, canais))
-        todos.extend(canais)
+    if fontes:
+        for fonte in fontes:
+            nome_fonte = fonte if not re.match(r"^https?://", fonte, re.I) else fonte[:70] + ("..." if len(fonte) > 70 else "")
+            print("Lendo fonte: {}".format(nome_fonte))
+            try:
+                texto = baixar(fonte, ignorar_ssl=ignorar_ssl)
+            except urllib.error.HTTPError as e:
+                print("  -> FALHOU (HTTP {}). Link expirado ou bloqueado?".format(e.code))
+                resumos.append((nome_fonte, None))
+                continue
+            except Exception as e:
+                print("  -> FALHOU: {}".format(e))
+                resumos.append((nome_fonte, None))
+                continue
+            canais = parse_m3u(texto)
+            print("  -> {} canais encontrados".format(len(canais)))
+            resumos.append((nome_fonte, canais))
+            todos.extend(canais)
 
-    if not todos:
-        print("\nNenhum canal foi lido. Confira o link em config.json.")
+    if not todos and not extras:
+        print("\nNada para montar: sem fontes em config.json e sem canais em extras.m3u.")
         return 1
+    if not todos and extras:
+        print("Montando so com seus canais (extras.m3u).")
 
     # Remove duplicados pela URL, mantendo a primeira ocorrencia
     if remover_duplicados:
@@ -307,6 +317,10 @@ def main():
 
     # Modo --resumo
     if args.resumo:
+        if not todos:
+            print("\nSem fontes configuradas - nada para resumir.")
+            return 0
+
         def contar(canais):
             grupos = {}
             paises = {}
@@ -350,6 +364,10 @@ def main():
 
     # Modo --listar
     if args.listar:
+        if not todos:
+            print("\nSem fontes configuradas - nada para listar.")
+            return 0
+
         grupos = {}
         for c in todos:
             grupos.setdefault(c["grupo"] or "SEM GRUPO", []).append(c["nome"])
@@ -379,8 +397,8 @@ def main():
     else:
         termos = ler_termos(os.path.join(RAIZ, arquivo_termos) if not os.path.isabs(arquivo_termos) else arquivo_termos)
         incluir, excluir = separar_termos(termos)
-        if not termos:
-            print("\nAVISO: {} esta vazio -> a lista saira COMPLETA.".format(arquivo_termos))
+        if fontes and not termos:
+            print("\nAVISO: {} esta vazio -> da fonte entram TODOS os canais.".format(arquivo_termos))
             print("Dica: rode 'python gerar_lista.py --listar' para ver os nomes dos canais.")
 
         escolhidos = []
@@ -395,14 +413,9 @@ def main():
             cortados = sum(1 for c in todos if any(casa(c, t) for t in excluir))
             print("Termos com '!' excluiram {} canal(is).".format(cortados))
 
-    # Canais extras (adicionados a mao) entram no final
-    extras_path = os.path.join(RAIZ, cfg.get("arquivo_extras", "extras.m3u"))
-    extras = []
-    if os.path.exists(extras_path):
-        with open(extras_path, "r", encoding="utf-8-sig", errors="replace") as f:
-            extras = parse_m3u(f.read())
-        if extras:
-            print("Adicionando {} canal(is) de extras.m3u".format(len(extras)))
+    # Seus canais (extras) ja foram lidos no inicio; entram no final
+    if extras:
+        print("Seus canais (extras.m3u): {} canal(is) no final da lista.".format(len(extras)))
 
     final = escolhidos + extras
     caminho_final = salvar(os.path.join(RAIZ, saida) if not os.path.isabs(saida) else saida, montar_m3u(final, usar_bom))
@@ -471,7 +484,7 @@ def main():
     print("Lista final: {} canal(is) -> {}".format(len(final), caminho_final))
     print("=" * 52)
 
-    if termos:
+    if termos and todos:
         sem_resultado = [t for t in termos if az(t.lstrip("=!")) and not any(casa(c, t) for c in todos)]
         if sem_resultado:
             print("\nEstes termos do {} NAO encontraram nenhum canal:".format(arquivo_termos))

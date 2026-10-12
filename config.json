@@ -1,7 +1,6 @@
 {
-  "fontes": [
-    "https://iptv-org.github.io/iptv/countries/br.m3u"
-  ],
+  "notas": "SEM FONTES = a sua lista e SO os canais que voce adicionou no meus-canais. Se um dia quiser usar uma lista grande de novo, cole o link aqui em 'fontes' e escreva no canais.txt o que quer manter.",
+  "fontes": [],
 
   "saida": "minha-lista.m3u",
   "arquivo_canais": "canais.txt",
