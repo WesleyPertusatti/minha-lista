@@ -19,7 +19,7 @@ echo.
 echo Enviando para o GitHub...
 git add -A
 git commit -m "Atualiza lista de canais"
-git push
+git push -u origin main
 
 echo.
 echo Se nao houve erro acima, a lista ja esta atualizada na TV.
